@@ -114,7 +114,6 @@ public:
   double mapPosAng(int ipSpeed);
   double mapNegAng(int ipSpeed);
   void MotorDirection();
-  int sgn(double val);
 
   void I();
   void O();

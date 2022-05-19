@@ -743,22 +743,6 @@ void Smorphi::sm_velocity_handler(float sm_req_linear_speed_x, float sm_req_line
 
 }
 
-int Smorphi::sgn(double val)
-{
-  int ans;
-  if (val == 0)
-  {
-    ans = 0;
-  }
-  else if (val>0)
-  {
-    ans = 1;
-  }
-  else{
-    ans = -1;
-  }
-  return ans;
-}
 
 //map velocity after kinematics to pwm
 void Smorphi::sm_pwm_handler(int flag)
