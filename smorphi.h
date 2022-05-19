@@ -97,7 +97,6 @@ public:
   void sm_reset_M3();
   void sm_reset_M4();
   // Interrup functions
-  static void interrupt_val();
   void interrupt_test();
   void set_interrupt_pin(); 
   int module1_sensor_interrupt();
