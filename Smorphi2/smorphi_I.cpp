@@ -179,11 +179,13 @@ void Smorphi::I()
       }
     }
     sm_solenoid_set(1,false);
-    stopSmorphi();
-    delay(500);
+    //stopSmorphi();
+    //delay(500);
 
     set_interrupt_pin();
+    Serial.println("prepare to unlatch");
     sm_solenoid_set(3,true);
+    Serial.println("finish unlatching");
 
     int solenoidstate2 = sm_feedback(2);
     while(solenoidstate2 == 0)

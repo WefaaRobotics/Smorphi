@@ -534,7 +534,7 @@ void loop() {
     }
 
 
-    else if (data_received == "5"){
+    else if (data_received == "pivot_left"){
       // if(command.substring(11,12) == "#"){
         my_robot.CenterPivotLeft(100);
         data_received = "";
@@ -544,7 +544,7 @@ void loop() {
       // }
     }
 
-    else if (data_received == "6"){
+    else if (data_received == "pivot_right"){
       // if(command.substring(11,12) == "#"){
         my_robot.CenterPivotRight(100);
         data_received = "";

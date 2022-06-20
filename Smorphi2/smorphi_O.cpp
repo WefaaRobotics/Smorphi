@@ -143,6 +143,11 @@ void Smorphi::O()
   if (cur_shape == 's')
   {
     I();
+
+    stopSmorphi();
+    delay(500);
+    start_time = millis();
+
     O();
   } 
 
