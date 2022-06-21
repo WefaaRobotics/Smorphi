@@ -68,61 +68,7 @@ void i2c(){
 
   delay(500); // wait 5 seconds for the next I2C scan
 }
-
-void demo() {
-    my_robot.MoveForward(100);
-    delay(3000);
-    my_robot.MoveBackward(80);
-    delay(3000);
-    my_robot.MoveLeft(80);
-    delay(3000);
-    my_robot.MoveRight(80);
-    delay(3000);
-  
-    //Stop66
-    my_robot.stopSmorphi();
-    delay(500);
-  
-  //  Diagonal Moving Test
-    my_robot.MoveDiagUpRight(80);
-    delay(3000);
-    my_robot.MoveDiagDownLeft(80);
-    delay(3000);
-    my_robot.MoveDiagUpLeft(80);
-    delay(3000);
-    my_robot.MoveDiagDownRight(80);
-    delay(3000);
-  
-    //Stop
-    my_robot.stopSmorphi();
-    delay(500);
-    
-    //Test Pivot Turning
-    my_robot.CenterPivotLeft(100);
-    delay(3000);
-    my_robot.CenterPivotRight(100);
-    delay(3000);
-  
-  //Stop
-    my_robot.stopSmorphi();
-    delay(500);
-  
-  //Test Moving In Curve
-    my_robot.MoveTurnUpLeft(80,80);
-    delay(3000);
-    my_robot.MoveTurnDownRight(80,80);
-    delay(3000);
-    my_robot.MoveTurnUpRight(80,80);
-    delay(3000);
-    my_robot.MoveTurnDownLeft(80,80);
-    delay(3000);
-
-    my_robot.stopSmorphi();
-    my_robot.sm_reset_M1();
-    my_robot.sm_reset_M2();
-    my_robot.sm_reset_M3();
-    my_robot.sm_reset_M4();
-  }
+ 
 
 void loop() {
 //  i2c();
@@ -134,16 +80,6 @@ void loop() {
 //  Serial.println(my_robot.sm_feedback(6));
 //  delay(10);
 
-//  Serial.print(digitalRead(32));
-//  Serial.print(digitalRead(33));
-//  Serial.print(digitalRead(34));
-//  Serial.println(digitalRead(35));
-
-//  my_robot.MoveForward(100);
-  
-//  if (Serial.available()) {
-//    SerialBT.write(Serial.read());
-//  }
   while (SerialBT.available()) {
 
     data_received = data_received + char(SerialBT.read());
@@ -195,27 +131,10 @@ void loop() {
       Serial.println(data_received);
       data_received = "";
     }
-    else if (data_received == "one"){
-      demo();  
-      Serial.print("transmission complete!! ");
-      Serial.println(data_received);
-      data_received = "";
-    }
-    else if (data_received == "two"){
-      Serial.println(command);
-      my_robot.stopSmorphi();  
-      Serial.print("transmission complete!! ");
-      Serial.println(data_received);
-      data_received = "";
-    }
-    // else if (data_received == "name") {
-    //   Serial.println(command.substring(5,command.length()-2));
-    //   esp_bt_dev_set_device_name(command.substring(5,command.length()-2).c_str());
-    // }
-
+    
     else if (data_received == "forwardfast"){
       // if(command.substring(11,12) == "#"){
-        my_robot.MoveForward(61);
+        my_robot.MoveForward(100);
         data_received = "";
         Serial.print("transmission complete!! ");
         Serial.println(data_received);
@@ -255,7 +174,7 @@ void loop() {
 
     else if (data_received == "backwardfast"){
       // if(command.substring(11,12) == "#"){
-        my_robot.MoveBackward(61);
+        my_robot.MoveBackward(100);
         data_received = "";
         Serial.print("transmission complete!! ");
         Serial.println(data_received);
@@ -553,46 +472,6 @@ void loop() {
         break;
       // }
     }
-
-    else if (data_received == "7"){
-      // if(command.substring(11,12) == "#"){
-        my_robot.MoveDiagUpLeft(100);
-        data_received = "";
-        Serial.print("transmission complete!! ");
-        Serial.println(data_received);
-        break;
-      // }
-    }
-
-    else if (data_received == "8"){
-      // if(command.substring(11,12) == "#"){
-        my_robot.MoveDiagDownLeft(100);
-        data_received = "";
-        Serial.print("transmission complete!! ");
-        Serial.println(data_received);
-        break;
-      // }
-    }
-
-    else if (data_received == "9"){
-      // if(command.substring(11,12) == "#"){
-        my_robot.MoveDiagUpRight(100);
-        data_received = "";
-        Serial.print("transmission complete!! ");
-        Serial.println(data_received);
-        break;
-      // }
-    }
-
-    else if (data_received == "x"){
-      // if(command.substring(11,12) == "#"){
-        my_robot.MoveDiagDownRight(100);
-        data_received = "";
-        Serial.print("transmission complete!! ");
-        Serial.println(data_received);
-        break;
-      // }
-    }
   
     else if (data_received == "st"){
       // if(command.substring(5,6) == "#"){
@@ -603,6 +482,23 @@ void loop() {
         break;
       // }
     }
+
+    else if (data_received == "shape_1" || data_received == "shape_2"){
+      // if(command.substring(5,6) == "#"){    
+        Serial.print("transmission complete!! ");
+        Serial.println(data_received);
+        data_received = "";
+        break;
+      // }
+    }
+
+    else{
+      //else if (data_received.substring(5,data_received.length()-2) == "name:") {
+       Serial.println(data_received.substring(5,data_received.length()-2));
+       esp_bt_dev_set_device_name(data_received.substring(5,data_received.length()-2).c_str());
+    }
+    
+
 
     my_robot.sm_reset_M1();
     my_robot.sm_reset_M2();
