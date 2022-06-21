@@ -492,13 +492,6 @@ void loop() {
       // }
     }
 
-    else{
-      //else if (data_received.substring(5,data_received.length()-2) == "name:") {
-       Serial.println(data_received.substring(5,data_received.length()-2));
-       esp_bt_dev_set_device_name(data_received.substring(5,data_received.length()-2).c_str());
-    }
-    
-
 
     my_robot.sm_reset_M1();
     my_robot.sm_reset_M2();

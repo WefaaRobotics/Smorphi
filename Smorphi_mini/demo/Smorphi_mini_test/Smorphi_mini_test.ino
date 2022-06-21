@@ -449,6 +449,13 @@ void loop() {
       // }
     }
 
+    else if (data_received == "shape_o"||data_received == "shape_i"||data_received == "shape_j"||data_received == "shape_z"||data_received == "shape_s"||data_received == "shape_t"||data_received == "shape_l"){
+        Serial.print("only for Smorphi2");
+        Serial.println(data_received);
+        data_received = "";
+        break;
+    }
+
     my_robot.sm_reset_M1();
     my_robot.sm_reset_M2();
     
