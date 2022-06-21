@@ -23,7 +23,7 @@ String data_received = "";
 void setup() {
   Serial.begin(115200); 
   my_robot.BeginSmorphi_mini();
-  SerialBT.begin("smorphi"); //Bluetooth device name
+  SerialBT.begin("smorphi_mini"); //Bluetooth device name
   Serial.println("The device started, now you can pair it with bluetooth!");
   Wire.begin();   
 //  Wire.setClock(400000); 
@@ -100,7 +100,7 @@ void loop() {
 
     else if (data_received == "forwardfast"){
       // if(command.substring(11,12) == "#"){
-        my_robot.MoveForward(61);
+        my_robot.MoveForward(100);
         data_received = "";
         Serial.print("transmission complete!! ");
         Serial.println(data_received);
@@ -140,7 +140,7 @@ void loop() {
 
     else if (data_received == "backwardfast"){
       // if(command.substring(11,12) == "#"){
-        my_robot.MoveBackward(61);
+        my_robot.MoveBackward(100);
         data_received = "";
         Serial.print("transmission complete!! ");
         Serial.println(data_received);
