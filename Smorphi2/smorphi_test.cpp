@@ -79,6 +79,8 @@ void Smorphi::BeginSmorphi()
   mcp3.setupInterrupts(true, false, LOW);
   mcp4.setupInterrupts(true, false, LOW);
 
+  
+
 //setup for sensor pins
   mcp1.pinMode(0, INPUT_PULLUP);
   mcp1.pinMode(2, INPUT_PULLUP);
@@ -203,6 +205,36 @@ void Smorphi::set_interrupt_pin(){
     mcp3.setupInterruptPin(15, HIGH);
     mcp4.setupInterruptPin(14, LOW);
   }
+}
+
+
+// setup for sensor status check for module1
+
+int Smorphi::module1_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp1.digitalRead(pin_no);
+  return pin_status;
+}
+
+// setup for sensor status check for module2
+int Smorphi::module2_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp2.digitalRead(pin_no);
+  return pin_status;
+}
+
+// setup for sensor status check for module3
+int Smorphi::module3_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp3.digitalRead(pin_no);
+  return pin_status;
+}
+
+// setup for sensor status check for module4
+int Smorphi::module4_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp4.digitalRead(pin_no);
+  return pin_status;
 }
 
 //sensor with interrupt test on module 1
