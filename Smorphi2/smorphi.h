@@ -127,6 +127,18 @@ public:
   // Ultrasonic Sensor
 
   // Infrared Sensor
+   // Module 1
+  int module1_sensor_status(int pin_no);
+  
+   // Module 2
+  int module2_sensor_status(int pin_no);
+  
+   // Module 3
+  int module3_sensor_status(int pin_no);
+  
+   // Module 4
+  int module4_sensor_status(int pin_no);
+  
 
   // Camera
 
