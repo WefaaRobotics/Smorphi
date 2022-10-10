@@ -8,9 +8,9 @@ void setup() {
 }
 
 void loop() {
-    int sensor1_status = my_robot.module1_sensor1_status();
-    int sensor2_status = my_robot.module1_sensor2_status();
-    int sensor3_status = my_robot.module1_sensor3_status();
+    int sensor1_status = my_robot.module1_sensor_status(0);
+    int sensor2_status = my_robot.module2_sensor_status(4);
+    int sensor3_status = my_robot.module3_sensor_status(0);
 //    Serial.println("***********");
 //    Serial.println(sensor1_status);
 //    Serial.println(sensor3_status);
