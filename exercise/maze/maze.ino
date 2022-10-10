@@ -1,60 +1,91 @@
-#include <smorphi.h>
+#include<smorphi.h>
+
 
 Smorphi my_robot;
-String last_movement = "last";
+
+int front_sensor_status ;
+int right_sensor_status ;
+int rear_sensor_status ;
+int left_sensor_status ;
+String last_action = "";
+
+
 
 void setup() {
+  // put your setup code here, to run once:
   Serial.begin(115200);
   my_robot.BeginSmorphi();
 }
 
 void loop() {
-    int sensor1_status = my_robot.module1_sensor2_status();
-    int sensor2_status = my_robot.module2_sensor2_status();
-    int sensor3_status = my_robot.module3_sensor2_status();
-    int sensor4_status = my_robot.module4_sensor2_status();
-    
-//    Serial.println("***********");
-//    Serial.println(sensor1_status);
-//    Serial.println(sensor2_status);
-//    Serial.println(sensor3_status);
-//    Serial.println(sensor4_status);
-//    Serial.println("***********");
-    
-    if (sensor1_status == 1){
-       = "forward";
-      if (last_movement!="backward"){
-        //my_robot.MoveForward(10);
-        last_movement = "forward";
-      }
-      else{
-        last_movement = "backward";
-      }
-    }
+  // put your main code here, to run repeatedly:
+  int front_sensor_status = my_robot.module1_sensor_status(0);
+  int right_sensor_status = my_robot.module1_sensor_status(4);
+  int rear_sensor_status = my_robot.module3_sensor_status(6);
+  int left_sensor_status = my_robot.module4_sensor_status(0);
 
-    if (sensor1_status == 0 && sensor4_status == 1){
 
-      if ((last_movement!="right") && (last_movement!="backward")){
-        //my_robot.MoveLeft(10);
-        last_movement = "left";
-      } 
-      else{
-        last_movement = "backward";
-      }
-    }
+  
+  if (front_sensor_status==1 && rear_sensor_status==1 && left_sensor_status==0 && right_sensor_status==0){
+    Serial.println("Move Straight");
+    my_robot.MoveForward(8);
+  }
 
-    if (sensor2_status == 1 && sensor4_status == 0 && sensor1_status == 0){
+  else if(front_sensor_status==0 && right_sensor_status==0){
+    pivot_left();
+    last_action = "pivot_left";
+  }
+  else if(last_action=="pivot_left" || last_action=="pivot_left" && right_sensor_status==0 ){
+    pivot_left();
+    delay(1500);  
+    last_action="nill_pivot_left";
+  }
+  else if(front_sensor_status==0 && left_sensor_status==0){
+    pivot_right();
+    last_action = "pivot_right";
+  }
+  else if(last_action=="pivot_right" || last_action=="pivot_right" && left_sensor_status==0 ){
+    pivot_right();
+    delay(1500);  
+    last_action="nill_pivot_right";
+  }
+  else if(last_action=="nill_pivot_right" && left_sensor_status==0 || left_sensor_status==0){
+    pivot_right();
+    delay(10);
+    last_action="";
+  }
+  else if(last_action=="nill_pivot_left" && right_sensor_status==0 || right_sensor_status==0){
+    pivot_left();
+    delay(10);
+    last_action="";
+  }
+  
+      
+  else{
+    Serial.println("Move Forward");
+    my_robot.MoveForward(10);
+  }
 
-      if (last_movement!="left"){
-        //my_robot.MoveRight(10);
-        last_movement = "right";
-      } 
-    }
+  my_robot.stopSmorphi();
+  my_robot.sm_reset_M1();
+  my_robot.sm_reset_M2();
+  my_robot.sm_reset_M3();
+  my_robot.sm_reset_M4();
 
-    Serial.println(last_movement);
-
-    my_robot.sm_reset_M1();
-    my_robot.sm_reset_M2();
-    my_robot.sm_reset_M3();
-    my_robot.sm_reset_M4();
 }
+ void pivot_left(){
+
+      Serial.println("Pivot Left");
+    
+      my_robot.CenterPivotLeft(80);
+      Serial.println(front_sensor_status);
+
+ }
+ void pivot_right(){
+
+      Serial.println("Pivot Right");
+    
+      my_robot.CenterPivotRight(80);
+
+    
+  }
