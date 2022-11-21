@@ -22,8 +22,9 @@ void loop (){
       Serial.println("Sound detected!");
       my_robot.MoveForward(10); // robot moves forward with speed 50 for 3 seconds
       delay(3000);
+      Serial.println("Stop Smorphi!");
       my_robot.stopSmorphi();
-      Serial.println("stop sm");
+
     }
     lastEvent = millis();
   }
