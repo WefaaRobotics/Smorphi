@@ -20,7 +20,7 @@ void loop (){
     // If 25ms have passed since last LOW state, it means that the sound is detected and not due to any spurious sounds
     if (millis() - lastEvent > 25){
       Serial.println("Sound detected!");
-      my_robot.MoveForward(10); // robot moves forward with speed 50 for 3 seconds
+      my_robot.MoveForward(10); // robot moves forward with speed 10 for 3 seconds
       delay(3000);
       Serial.println("Stop Smorphi!");
       my_robot.stopSmorphi();
