@@ -15,14 +15,14 @@ void loop() {
   Serial.println(sensor_status);
   //If sensor returns HIGH, what has happened?
   if (sensor_status == HIGH) {
+    
     // your code here
-
 
   }
   //If sensor returns LOW, what has happened?
   if (sensor_status == LOW) {
+    
     //your code here
-
 
   }
 }

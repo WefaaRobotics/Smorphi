@@ -20,9 +20,8 @@ void loop() {
     // If 25ms have passed since last LOW state, it means that the sound is detected and not due to any spurious sounds
     if (millis() - lastEvent > 25){
       Serial.println("Sound detected!");
+      
       // your code here
-
-
 
 
     }
