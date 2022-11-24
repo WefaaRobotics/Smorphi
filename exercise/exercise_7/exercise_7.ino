@@ -19,7 +19,7 @@ void loop() {
     // robot moves forward with speed 10
     my_robot.MoveForward(10);
     }
-   if (sensor_status == LOW){
+  else {
     Serial.println("Something is in front!");    
     my_robot.stopSmorphi();
    }
