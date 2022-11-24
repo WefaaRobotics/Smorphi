@@ -1,3 +1,4 @@
+// function file to control the movement of the robot
 void movements() {
   if (front_sensor_status==1 && rear_sensor_status==1 && left_sensor_status==0 && right_sensor_status==0){
     Serial.println("1 Move Straight");
