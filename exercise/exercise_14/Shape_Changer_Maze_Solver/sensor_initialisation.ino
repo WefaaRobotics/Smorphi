@@ -1,3 +1,4 @@
+// file to intialise the sensors according to the shape of the robot
 void sensor_initialisation() {
   if(my_robot.sm_getShape() == 'l'){
     front_sensor_status = my_robot.module1_sensor_status(0);

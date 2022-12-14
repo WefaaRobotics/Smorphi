@@ -56,6 +56,10 @@ void loop(void)
     // if temperature is less than 30°C, Smorphi stops
     else
     {
+      my_robot.sm_reset_M1();
+      my_robot.sm_reset_M2();
+      my_robot.sm_reset_M3();
+      my_robot.sm_reset_M4();
       my_robot.stopSmorphi();
     }
   } 
