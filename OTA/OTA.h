@@ -6,8 +6,8 @@
 #include <ESPAsyncWebServer.h>
 #include <AsyncElegantOTA.h>
 
-const char* ssid = "WASP_2.4";
-const char* password = "Wasp1234";
+const char* ssid = "";    //Enter your WiFi SSID
+const char* password = "";   //Enter your WiFi Password
 
 AsyncWebServer server(80);
 
