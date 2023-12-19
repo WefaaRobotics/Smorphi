@@ -97,6 +97,9 @@ public:
   void interrupt_test();
   void set_interrupt_pin(); 
   int module1_sensor_interrupt();
+  int module2_sensor_interrupt();
+  int module3_sensor_interrupt();
+  int module4_sensor_interrupt();
   
 
   // Helper Functions
@@ -122,6 +125,10 @@ public:
   // Infrared Sensor
    // Module 1
   int module1_sensor_status(int pin_no);
+  int module2_sensor_status(int pin_no);
+  int module3_sensor_status(int pin_no);
+  int module4_sensor_status(int pin_no);
+
    
 
   // Camera

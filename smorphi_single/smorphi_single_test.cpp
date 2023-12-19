@@ -181,6 +181,24 @@ int Smorphi_single::module1_sensor_status(int pin_no){
   return pin_status;
 }
 
+int Smorphi_single::module2_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp2.digitalRead(pin_no);
+  return pin_status;
+}
+
+int Smorphi_single::module3_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp3.digitalRead(pin_no);
+  return pin_status;
+}
+
+int Smorphi_single::module4_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp4.digitalRead(pin_no);
+  return pin_status;
+}
+
 // int Smorphi_mini::module2_sensor_status(int pin_no){
 //   int pin_status;
 //   pin_status = mcp2.digitalRead(pin_no);
@@ -196,6 +214,46 @@ int Smorphi_single::module1_sensor_interrupt(){
   }
   else{
     // Serial.println(digitalRead(INT_PIN_1));
+    return 255;
+  }
+}
+
+
+//sensor with interrupt test on module 2
+int Smorphi_single::module2_sensor_interrupt(){
+  if (!digitalRead(INT_PIN_2)){
+    // Serial.println(digitalRead(INT_PIN_2));
+    int interrupt_pin_value = mcp2.getLastInterruptPin();
+    return interrupt_pin_value;
+  }
+  else{
+    // Serial.println(digitalRead(INT_PIN_2));
+    return 255;
+  }
+}
+
+//sensor with interrupt test on module 3
+int Smorphi_single::module3_sensor_interrupt(){
+  if (!digitalRead(INT_PIN_3)){
+    // Serial.println(digitalRead(INT_PIN_2));
+    int interrupt_pin_value = mcp3.getLastInterruptPin();
+    return interrupt_pin_value;
+  }
+  else{
+    // Serial.println(digitalRead(INT_PIN_2));
+    return 255;
+  }
+}
+
+//sensor with interrupt test on module 4
+int Smorphi_single::module4_sensor_interrupt(){
+  if (!digitalRead(INT_PIN_4)){
+    // Serial.println(digitalRead(INT_PIN_2));
+    int interrupt_pin_value = mcp4.getLastInterruptPin();
+    return interrupt_pin_value;
+  }
+  else{
+    // Serial.println(digitalRead(INT_PIN_2));
     return 255;
   }
 }
