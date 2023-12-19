@@ -421,7 +421,7 @@ void loop() {
 
     else if (data_received == "pivot_left"){
       // if(command.substring(11,12) == "#"){
-        my_robot.CenterPivotLeft(100);
+        my_robot.CenterPivotLeft(270);
         data_received = "";
         Serial.print("transmission complete!! ");
         Serial.println(data_received);
@@ -431,7 +431,7 @@ void loop() {
 
     else if (data_received == "pivot_right"){
       // if(command.substring(11,12) == "#"){
-        my_robot.CenterPivotRight(100);
+        my_robot.CenterPivotRight(270);
         data_received = "";
         Serial.print("transmission complete!! ");
         Serial.println(data_received);
