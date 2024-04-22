@@ -1,9 +1,8 @@
 // Include the libraries we need
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <smorphi.h>
 
-// Sensor data wire is plugged into sensor port 1 on the Master board
+// Data wire is plugged into port 2 on the Arduino
 #define ONE_WIRE_BUS 16
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
@@ -11,9 +10,6 @@ OneWire oneWire(ONE_WIRE_BUS);
 
 // Pass our oneWire reference to Dallas Temperature. 
 DallasTemperature sensors(&oneWire);
-
-// Initialise the robot
-Smorphi my_robot;
 
 /*
  * The setup function. We only start the sensors here
@@ -47,22 +43,7 @@ void loop(void)
   {
     Serial.print("Temperature for the device 1 (index 0) is: ");
     Serial.println(tempC);
-    
-    // if temperature is more than 30°C, what will happen?
-    if (tempC > 30) {
-      
-      // your code
-
-    }
-    // if temperature is less than 30°C, what will happen?
-    else {
-      
-      // your code
-      
-    }
-  }
-
-  // happens when reading is unsuccesful
+  } 
   else
   {
     Serial.println("Error: Could not read temperature data");

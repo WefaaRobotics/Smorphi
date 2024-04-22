@@ -13,7 +13,7 @@ void Smorphi_mini::shape1()
   char cur_shape = sm_getShape();
   int flag = 2;
   //map the velocity
-  double w = mapPosAng(100);
+  double w = mapPosAng(350);
   //get the current time
   unsigned long start_time = millis();
 

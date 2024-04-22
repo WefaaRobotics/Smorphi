@@ -104,6 +104,18 @@ void Smorphi_mini::set_interrupt_pin(){
   }
 }
 
+int Smorphi_mini::module1_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp1.digitalRead(pin_no);
+  return pin_status;
+}
+
+int Smorphi_mini::module2_sensor_status(int pin_no){
+  int pin_status;
+  pin_status = mcp2.digitalRead(pin_no);
+  return pin_status;
+}
+
 //sensor with interrupt test on module 1
 int Smorphi_mini::module1_sensor_interrupt(){
   if (!digitalRead(INT_PIN_1)){

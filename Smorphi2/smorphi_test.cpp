@@ -369,6 +369,9 @@ void Smorphi::sm_solenoid_set(int solenoid_unlock, bool status){
 
 //get the current shape 
 char Smorphi::sm_getShape(){ 
+  //   if (sm_feedback(1)==1 && sm_feedback(2)==1 && sm_feedback(3)==1 && sm_feedback(4)==1 && sm_feedback(5)==1 && sm_feedback(6)==1){
+  //   robot_shape = 'i';
+  // }
   if (sm_feedback(1)==0 && sm_feedback(2)==1 && sm_feedback(3)==0 && sm_feedback(4)==1 && sm_feedback(5)==1 && sm_feedback(6)==0){
     robot_shape = 'i';
   }
@@ -408,6 +411,30 @@ void Smorphi::sm_velocity_handler(float sm_req_linear_speed_x, float sm_req_line
   float w   = sm_req_angular_speed;
 
   char shape = sm_getShape();
+
+  //   // Module 1
+  // sm_lv_M1FL  =  ( v_x - v_y - 0.255 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M1FR  =  ( v_x + v_y + 0.255 * w + ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M1RL  =  ( v_x + v_y + 0.255 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M1RR  =  ( v_x - v_y - 0.255 * w + ( sm_wheel_x + sm_wheel_y) * w );
+
+  // // Module 2
+  // sm_lv_M2FL  =  ( v_x - v_y - 0.085 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M2FR  =  ( v_x + v_y + 0.085 * w + ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M2RL  =  ( v_x + v_y + 0.085 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M2RR  =  ( v_x - v_y - 0.085 * w + ( sm_wheel_x + sm_wheel_y) * w );
+
+  // // Module 3
+  // sm_lv_M3FL  =  ( -v_x + v_y - 0.085 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M3FR  =  ( -v_x - v_y + 0.085 * w + ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M3RL  =  ( -v_x - v_y + 0.085 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M3RR  =  ( -v_x + v_y - 0.085 * w + ( sm_wheel_x + sm_wheel_y) * w );
+
+  // // Module 4
+  // sm_lv_M4FL  =  ( -v_x + v_y - 0.255 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M4FR  =  ( -v_x - v_y + 0.255 * w + ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M4RL  =  ( -v_x - v_y + 0.255 * w - ( sm_wheel_x + sm_wheel_y) * w );
+  // sm_lv_M4RR  =  ( -v_x + v_y - 0.255 * w + ( sm_wheel_x + sm_wheel_y) * w );
 
   if (shape == 'o')
   {

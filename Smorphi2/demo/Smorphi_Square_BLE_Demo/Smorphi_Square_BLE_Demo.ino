@@ -1,4 +1,4 @@
-#include <smorphi_triple.h>
+#include <smorphi.h>
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLEUtils.h>
@@ -11,7 +11,7 @@ BLECharacteristic *pCharacteristic; // Pointer to the BLE characteristic for not
 bool deviceConnected = false;       // Flag to track BLE connection status
 float txValue = 1;                  // Variable to store the value to be sent
 String rxString;                    // Global variable to store the received String
-Smorphi_triple my_robot;                   // Smorphi object
+Smorphi my_robot;                   // Smorphi object
 
 
 
@@ -33,8 +33,52 @@ Smorphi_triple my_robot;                   // Smorphi object
 void handleBLEData(String data_received) 
 {
 
+    // ------------------- Shape Commands -------------------
+    if (data_received == "R") 
+    {
+        my_robot.I();  
+        Serial.println("Executed Command: Shape I");
+        data_received = "";
+    }
+    else if (data_received == "S") 
+    {
+        my_robot.O(); 
+        Serial.println("Executed Command: Shape O");
+        data_received = "";
+    }
+    else if (data_received == "T") 
+    { 
+        my_robot.L(); 
+        Serial.println("Executed Command: Shape L");
+        data_received = "";
+    }
+    else if (data_received == "U") 
+    { 
+        my_robot.J(); 
+        Serial.println("Executed Command: Shape J");
+        data_received = "";
+    }
+    else if (data_received == "V") 
+    {
+        my_robot.Z(); 
+        Serial.println("Executed Command: Shape Z");
+        data_received = "";
+    }
+    else if (data_received == "W") 
+    {
+        my_robot.S(); 
+        Serial.println("Executed Command: Shape S");  
+        data_received = "";
+    }
+    else if (data_received == "X") 
+    {
+        my_robot.T(); 
+        Serial.println("Executed Command: Shape T");
+        data_received = "";
+    }
+
     // ------------------- Forward Commands -------------------
-    if (data_received == "[") 
+    else if (data_received == "[") 
     {
         my_robot.MoveForward(100);
         Serial.println("Executed Command: FWD fast");
@@ -244,13 +288,13 @@ void handleBLEData(String data_received)
     // ------------------- Pivot Commands -------------------
     else if (data_received == "{")
     {
-        my_robot.CenterPivotLeft(100);
+        my_robot.CenterPivotLeft(270);
         data_received = "";
         Serial.println("Executed Command: PIVOT LEFT");
     }
     else if (data_received == "|")
     {
-        my_robot.CenterPivotRight(100);
+        my_robot.CenterPivotRight(270);
         data_received = "";
         Serial.println("Executed Command: PIVOT RIGHT");
     }
@@ -267,6 +311,7 @@ void handleBLEData(String data_received)
     my_robot.sm_reset_M1();
     my_robot.sm_reset_M2();
     my_robot.sm_reset_M3();
+    my_robot.sm_reset_M4();
 
 
 }
@@ -321,10 +366,10 @@ void setup()
 {
 
     Serial.begin(115200); 
-    my_robot.BeginSmorphiTriple();
+    my_robot.BeginSmorphi();
     Wire.begin();   
 
-    BLEDevice::init("Smorphi Triple BLE"); 
+    BLEDevice::init("Smorphi Square BLE"); 
     BLEServer *pServer = BLEDevice::createServer();
     pServer->setCallbacks(new MyServerCallbacks());
 

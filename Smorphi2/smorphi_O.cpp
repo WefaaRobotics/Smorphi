@@ -11,7 +11,7 @@ void Smorphi::O()
 {
   char cur_shape = sm_getShape();
   int flag = 2;
-  double w = mapPosAng(80);
+  double w = mapPosAng(350);
   unsigned long start_time = millis();
 
   if (cur_shape == 'i')

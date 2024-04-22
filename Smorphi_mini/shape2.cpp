@@ -11,7 +11,7 @@ void Smorphi_mini::shape2()
 {
   char cur_shape = sm_getShape();
   int flag = 2;
-  double w = mapPosAng(100);
+  double w = mapPosAng(350);
   unsigned long start_time = millis();
 
 
