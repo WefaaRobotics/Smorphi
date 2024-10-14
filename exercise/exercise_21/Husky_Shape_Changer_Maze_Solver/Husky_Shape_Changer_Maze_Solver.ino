@@ -7,7 +7,7 @@
 Smorphi my_robot;
 HUSKYLENS huskylens;        // Create an object for HuskyLens
 
-SoftwareSerial myHuskySerial(16, 17); // RX is Pin 26, TX is Pin 27
+SoftwareSerial myHuskySerial(16, 17); // Alternate pins for RX is Pin 26, TX is Pin 27
 
 void printResult(HUSKYLENSResult result); //Function for serial print results from the sensor
 
