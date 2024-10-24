@@ -1,5 +1,5 @@
-#include <smorphi_single_250.h>
-#include<Encoder_250.h>
+#include <smorphi_single.h>
+#include<Encoder.h>
 
 Smorphi_single my_robot;
 

@@ -38,6 +38,9 @@ Adafruit_DCMotor *M42 = AFMS4.getMotor(2);
 Adafruit_DCMotor *M43 = AFMS4.getMotor(4);
 Adafruit_DCMotor *M44 = AFMS4.getMotor(3);
 
+const float radius = 0.03;
+const float kp = 0; // 0.7
+
 void Smorphi_single::BeginSmorphi_single()
 {
 
@@ -368,7 +371,7 @@ char Smorphi_single::sm_getShape(){
 }
 
 //Kinematic equations for all shapes
-void Smorphi_single::sm_velocity_handler(float sm_req_linear_speed_x, float sm_req_linear_speed_y, float sm_req_angular_speed)
+void Smorphi_single::sm_velocity_handler(float sm_req_linear_speed_x, float sm_req_linear_speed_y, float sm_req_angular_speed, float RPS_M1,float RPS_M2, float RPS_M3,float RPS_M4)
 {
   float v_x = sm_req_linear_speed_x;
   float v_y = sm_req_linear_speed_y;
@@ -451,6 +454,31 @@ void Smorphi_single::sm_velocity_handler(float sm_req_linear_speed_x, float sm_r
     // Serial.println("=========Linear_Velocity==========");
 
   }
+   // Module 1
+  sm_lv_M1FL  =  sm_lv_M1FL + kp*(sm_lv_M1FL - RPS_M1*radius);
+  sm_lv_M1FR  =  sm_lv_M1FR + kp*(sm_lv_M1FR - RPS_M2*radius);
+  sm_lv_M1RL  =  sm_lv_M1RL + kp*(sm_lv_M1RL - RPS_M4*radius);
+  sm_lv_M1RR  =  sm_lv_M1RR + kp*(sm_lv_M1RR - RPS_M3*radius);
+
+  // Module 2
+  sm_lv_M2FL  =  sm_lv_M2FL + kp*(sm_lv_M2FL - RPS_M1*radius);
+  sm_lv_M2FR  =  sm_lv_M2FR + kp*(sm_lv_M2FR - RPS_M2*radius);
+  sm_lv_M2RL  =  sm_lv_M2RL + kp*(sm_lv_M2RL - RPS_M4*radius);
+  sm_lv_M2RR  =  sm_lv_M2RR + kp*(sm_lv_M2RR - RPS_M3*radius);
+
+
+  // Module 3
+  sm_lv_M3FL  =  sm_lv_M3FL + kp*(sm_lv_M3FL - RPS_M1*radius);
+  sm_lv_M3FR  =  sm_lv_M3FR + kp*(sm_lv_M3FR - RPS_M2*radius);
+  sm_lv_M3RL  =  sm_lv_M3RL + kp*(sm_lv_M3RL - RPS_M4*radius);
+  sm_lv_M3RR  =  sm_lv_M3RR + kp*(sm_lv_M3RR - RPS_M3*radius);
+
+
+  // Module 4
+  sm_lv_M4FL  =  sm_lv_M4FL + kp*(sm_lv_M4FL - RPS_M1*radius);
+  sm_lv_M4FR  =  sm_lv_M4FR + kp*(sm_lv_M4FR - RPS_M2*radius);
+  sm_lv_M4RL  =  sm_lv_M4RL + kp*(sm_lv_M4RL - RPS_M4*radius);
+  sm_lv_M4RR  =  sm_lv_M4RR + kp*(sm_lv_M4RR - RPS_M3*radius);
 
 }
 
@@ -698,7 +726,20 @@ void Smorphi_single::MotorDirection(){
 void Smorphi_single::MoveForward(const int Speed)
 {
   double vel_speed = mapPosRanges(Speed);
-  sm_velocity_handler(vel_speed, 0, 0);
+  sm_velocity_handler(vel_speed, 0, 0, 0, 0, 0, 0);
+  int flag = 0;
+  sm_pwm_handler(flag);
+  MotorDirection();
+
+}
+
+void Smorphi_single::Move(const float Speed_x,const float Speed_y,const float Speed_w,const float error_x,const float error_y, const float error_w,const float RPS_M1,const float RPS_M2,const float RPS_M3, const float RPS_M4)
+{
+  
+  double corrected_speed_x = Speed_x + error_x;
+  double corrected_speed_y = Speed_y + error_y;
+  double corrected_speed_w = Speed_w + error_w;
+  sm_velocity_handler(corrected_speed_x,corrected_speed_y, corrected_speed_w,RPS_M1,RPS_M2,RPS_M3,RPS_M4);
   int flag = 0;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -708,7 +749,7 @@ void Smorphi_single::MoveForward(const int Speed)
 void Smorphi_single::MoveBackward(const int Speed)
 {
   double vel_speed = mapNegRanges(Speed);
-  sm_velocity_handler(vel_speed, 0, 0);
+  sm_velocity_handler(vel_speed, 0, 0, 0, 0, 0, 0);
   int flag = 0;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -717,7 +758,7 @@ void Smorphi_single::MoveBackward(const int Speed)
 void Smorphi_single::MoveRight(const int Speed)
 {
   double vel_speed = mapNegRanges(Speed);
-  sm_velocity_handler(0, vel_speed, 0);
+  sm_velocity_handler(0, vel_speed, 0, 0, 0, 0, 0);
   int flag = 0;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -726,7 +767,7 @@ void Smorphi_single::MoveRight(const int Speed)
 void Smorphi_single::MoveLeft(const int Speed)
 {
   double vel_speed = mapPosRanges(Speed);
-  sm_velocity_handler(0, vel_speed, 0);
+  sm_velocity_handler(0, vel_speed, 0, 0, 0, 0, 0);
   int flag = 0;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -736,7 +777,7 @@ void Smorphi_single::MoveDiagUpRight(const int Speed)
 {
   double vel_speed_x = mapPosRanges(Speed)/2;
   double vel_speed_y = mapNegRanges(Speed)/2;
-  sm_velocity_handler(vel_speed_x+0.001, vel_speed_y, 0);
+  sm_velocity_handler(vel_speed_x+0.001, vel_speed_y, 0, 0, 0, 0, 0);
   int flag = 3;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -745,7 +786,7 @@ void Smorphi_single::MoveDiagUpRight(const int Speed)
 void Smorphi_single::MoveDiagUpLeft(const int Speed)
 {
   double vel_speed = mapPosRanges(Speed)/2;
-  sm_velocity_handler(vel_speed+0.001, vel_speed, 0);
+  sm_velocity_handler(vel_speed+0.001, vel_speed, 0, 0, 0, 0, 0);
   int flag = 3;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -756,7 +797,7 @@ void Smorphi_single::MoveDiagDownRight(const int Speed)
 {
 
   double vel_speed = mapNegRanges(Speed)/2;
-  sm_velocity_handler(vel_speed-0.001, vel_speed, 0);
+  sm_velocity_handler(vel_speed-0.001, vel_speed, 0, 0, 0, 0, 0);
   int flag = 3;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -768,7 +809,7 @@ void Smorphi_single::MoveDiagDownLeft(const int Speed)
   
   double vel_speed_x = mapNegRanges(Speed)/2;
   double vel_speed_y = mapPosRanges(Speed)/2;
-  sm_velocity_handler(vel_speed_x-0.001, vel_speed_y, 0);
+  sm_velocity_handler(vel_speed_x-0.001, vel_speed_y, 0, 0, 0, 0, 0);
   int flag = 3;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -780,7 +821,7 @@ void Smorphi_single::MoveTurnUpRight(const int Speed, const int angular_velocity
   
   double vel_speed = mapPosRanges(Speed);
   double ang_speed = mapNegAng(angular_velocity);
-  sm_velocity_handler(vel_speed, 0, ang_speed);
+  sm_velocity_handler(vel_speed, 0, ang_speed, 0, 0, 0, 0);
   int flag = 1;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -792,7 +833,7 @@ void Smorphi_single::MoveTurnUpLeft(const int Speed, const int angular_velocity)
   
   double vel_speed = mapPosRanges(Speed);
   double ang_speed = mapPosAng(angular_velocity);
-  sm_velocity_handler(vel_speed, 0, ang_speed);
+  sm_velocity_handler(vel_speed, 0, ang_speed, 0, 0, 0, 0);
   int flag = 1;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -804,7 +845,7 @@ void Smorphi_single::MoveTurnDownRight(const int Speed, const int angular_veloci
   
   double vel_speed = mapNegRanges(Speed);
   double ang_speed = mapNegAng(angular_velocity);
-  sm_velocity_handler(vel_speed, 0, ang_speed);
+  sm_velocity_handler(vel_speed, 0, ang_speed, 0, 0, 0, 0);
   int flag = 1;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -815,7 +856,7 @@ void Smorphi_single::MoveTurnDownLeft(const int Speed, const int angular_velocit
 {
   double vel_speed = mapNegRanges(Speed);
   double ang_speed = mapPosAng(angular_velocity);
-  sm_velocity_handler(vel_speed, 0, ang_speed);
+  sm_velocity_handler(vel_speed, 0, ang_speed, 0, 0, 0, 0);
   int flag = 1;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -856,7 +897,7 @@ void Smorphi_single::CenterPivotLeft(const int angular_velocity)
 {
   
   double ang_speed = mapPosAng(angular_velocity);
-  sm_velocity_handler(0, 0, ang_speed);
+  sm_velocity_handler(0, 0, ang_speed, 0, 0, 0, 0);
   int flag = 2;
   sm_pwm_handler(flag);
   MotorDirection();
@@ -865,7 +906,7 @@ void Smorphi_single::CenterPivotLeft(const int angular_velocity)
 void Smorphi_single::CenterPivotRight(const int angular_velocity)
 {
   double ang_speed = mapNegAng(angular_velocity);
-  sm_velocity_handler(0, 0, ang_speed);
+  sm_velocity_handler(0, 0, ang_speed, 0, 0, 0, 0);
   int flag = 2;
   sm_pwm_handler(flag);
   MotorDirection();

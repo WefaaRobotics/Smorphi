@@ -60,12 +60,13 @@ public:
   void BeginSmorphi_single();
 
   // Velocity Handler
-  void sm_velocity_handler(float sm_req_linear_speed_x, float sm_req_linear_speed_y, float sm_req_angular_speed);
+  void sm_velocity_handler(float sm_req_linear_speed_x, float sm_req_linear_speed_y, float sm_req_angular_speed, float RPS_M1,float RPS_M2, float RPS_M3,float RPS_M4);
 
   //PWM Handler
   void sm_pwm_handler(int flag);
 
   // Locomotion
+  void Move(const float Speed_x,const float Speed_y,const float Speed_w,const float error_x,const float error_y, const float error_w,const float RPS_M1,const float RPS_M2,const float RPS_M3, const float RPS_M4);
   void MoveForward(int Speed);
   void MoveBackward(int Speed);
   void MoveRight(int Speed);
