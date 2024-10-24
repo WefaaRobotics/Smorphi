@@ -3,7 +3,7 @@
 #include <DallasTemperature.h>
 #include <smorphi.h>
 
-// Data wire is plugged into port 1 on the Masterboard
+// Data wire is plugged onto the Masterboard
 #define ONE_WIRE_BUS 16
 
 // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
