@@ -244,13 +244,13 @@ void handleBLEData(String data_received)
     // ------------------- Pivot Commands -------------------
     else if (data_received == "{")
     {
-        my_robot.CenterPivotLeft(100);
+        my_robot.CenterPivotLeft(270);
         data_received = "";
         Serial.println("Executed Command: PIVOT LEFT");
     }
     else if (data_received == "|")
     {
-        my_robot.CenterPivotRight(100);
+        my_robot.CenterPivotRight(270);
         data_received = "";
         Serial.println("Executed Command: PIVOT RIGHT");
     }
